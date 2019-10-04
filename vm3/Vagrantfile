@@ -3,12 +3,12 @@
 
 API_VERSION = "2"
 BOX_NAME    = "generic/rhel7"
-BOX_IP      = "192.168.50.13"
+BOX_IP      = "192.168.56.13"
 DOMAIN      = "nip.io"
 PRIVATE_KEY = "~/.ssh/id_rsa"
 PUBLIC_KEY  = '~/.ssh/id_rsa.pub'
 
-DISK = 'rhel7-3.vdi'
+DISK = 'rhel7-1.vdi'
 
 Vagrant.configure(API_VERSION) do |config|
   config.vm.box = BOX_NAME
@@ -24,7 +24,7 @@ Vagrant.configure(API_VERSION) do |config|
     v.memory = "4096"
     v.cpus = "2"
     unless File.exist?(DISK)
-      v.customize ['createhd', '--filename', DISK, '--variant', 'Fixed', '--size', 20 * 1024]
+      v.customize ['createhd', '--filename', DISK, '--variant', 'Fixed', '--size', 10 * 1024]
     end
 #    v.customize ["storagectl", :id, "--name", "SATAController", "--add", "sata"]
 #    v.customize ['storageattach', :id,  '--storagectl', 'SATAController', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', DISK]

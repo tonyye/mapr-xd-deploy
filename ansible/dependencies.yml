@@ -1,0 +1,21 @@
+dependencies:
+  - curl
+  - device-mapper
+  - iputils
+  - libsysfs
+  - lvm2
+  - nc
+  - nfs-utils
+  - ntp
+  - nss
+  - openssl
+  - python-devel
+  - sdparm
+  - sudo
+  - syslinux
+  - sysstat
+  - wget
+  - which
+  - yum-utils
+  - java-1.8.0-openjdk
+  - java-1.8.0-openjdk-devel

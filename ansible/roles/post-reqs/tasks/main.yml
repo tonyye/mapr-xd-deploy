@@ -1,0 +1,26 @@
+- name: Ensure SELinux is set to disabled mode
+  lineinfile:
+    path: /etc/selinux/config
+    regexp: '^SELINUX='
+    line: SELINUX=disabled
+
+- name: Set MAPR_SUBNETS Environment Variable
+  replace:
+    path: /opt/mapr/conf/env.sh
+    regexp: '^#export MAPR_SUBNETS='
+    replace: 'export MAPR_SUBNETS=192.168.56.0/24'
+
+- name: Set net.ipv4.tcp_retries2
+  sysctl:
+    name: net.ipv4.tcp_retries2
+    value: 5
+    state: present
+
+- name: Set vm.swappiness
+  sysctl:
+    name: vm.swappiness
+    value: 1
+    state: present
+
+- name: Disable transparent huge pages for performance
+  shell: echo never > /sys/kernel/mm/transparent_hugepage/enabled && echo never > /sys/kernel/mm/transparent_hugepage/defrag

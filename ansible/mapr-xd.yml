@@ -1,0 +1,67 @@
+- name: Install MapR-XD
+  hosts: all
+  become: true
+  vars_files:
+    - dependencies.yml
+  environment:
+    https_proxy: http://10.248.147.6:9090
+  tasks:
+    - name: Import MapR key
+      rpm_key:
+        key: https://package.mapr.com/releases/pub/maprgpg.key
+        state: present
+    - name: Add MapR Repo
+      yum_repository:
+        name: maprtech
+        description: MapR Technologies
+        baseurl: https://package.mapr.com/releases/v6.1.0/redhat
+        state: present
+###    - name: Add MEP Repo
+###      yum_repository:
+###        name: maprecosystem
+###        description: MapR Technologies
+###        baseurl: https://package.mapr.com/releases/MEP/MEP-6.1.0/redhat
+###        state: present
+    - name: Install MapR Dependencies
+      yum:
+        name: "{{ dependencies }}"
+        state: present
+    - name: Install MapR Common Packages
+      yum:
+        name:
+          - 'mapr-core'
+          - 'mapr-fileserver'
+        state: present
+      when: inventory_hostname in groups['all']
+    - name: Install MapR CLDB Packages
+      yum:
+        name:
+          - 'mapr-cldb'
+        state: present
+      when: inventory_hostname in groups['cldb']
+    - name: Install MapR Zookeeper Packages
+      yum:
+        name:
+          - 'mapr-zookeeper'
+        state: present
+      when: inventory_hostname in groups['zookeeper']
+    - name: Install MapR Webserver Packages
+      yum:
+        name:
+          - 'mapr-webserver'
+        state: present
+      when: inventory_hostname in groups['webserver']
+    - name: Ensure group "mapr" exists
+      group:
+        name: mapr
+        gid: 5000
+        state: present
+    - name: Ensure user "mapr" exists
+      user:
+        name: mapr
+        uid: 5000
+        group: mapr
+        groups: root
+        state: present
+  roles:
+    - role: post-reqs
