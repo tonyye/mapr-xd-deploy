@@ -5,23 +5,30 @@
     - dependencies.yml
   environment:
     https_proxy: http://10.248.147.6:9090
-  tasks:
+    http_proxy: http://10.248.147.6:9090
+  pre_tasks:
     - name: Import MapR key
       rpm_key:
         key: https://package.mapr.com/releases/pub/maprgpg.key
         state: present
     - name: Add MapR Repo
       yum_repository:
-        name: maprtech
-        description: MapR Technologies
+        name: mapr_core
+        description: MapR Core Components
         baseurl: https://package.mapr.com/releases/v6.1.0/redhat
+        gpgcheck: yes
+        enabled: yes
+        protect: yes
         state: present
-###    - name: Add MEP Repo
-###      yum_repository:
-###        name: maprecosystem
-###        description: MapR Technologies
-###        baseurl: https://package.mapr.com/releases/MEP/MEP-6.1.0/redhat
-###        state: present
+    - name: Add MapR Ecosystem Components Repo
+      yum_repository:
+        name: mapr_ecosystem
+        description: MapR Ecosystem Components
+        baseurl: https://package.mapr.com/releases/MEP/MEP-6.1.0/redhat
+        gpgcheck: yes
+        enabled: yes
+        protect: yes
+        state: present
     - name: Install MapR Dependencies
       yum:
         name: "{{ dependencies }}"
@@ -32,7 +39,6 @@
           - 'mapr-core'
           - 'mapr-fileserver'
         state: present
-      when: inventory_hostname in groups['all']
     - name: Install MapR CLDB Packages
       yum:
         name:

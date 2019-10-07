@@ -2,13 +2,13 @@
 # vi: set ft=ruby :
 
 API_VERSION = "2"
-BOX_NAME    = "generic/rhel7"
+BOX_NAME    = "centos/7"
 BOX_IP      = "192.168.56.11"
 DOMAIN      = "nip.io"
 PRIVATE_KEY = "~/.ssh/id_rsa"
 PUBLIC_KEY  = '~/.ssh/id_rsa.pub'
 
-DISK = 'rhel7-1.vdi'
+DISK = 'centos7-1.vdi'
 
 Vagrant.configure(API_VERSION) do |config|
   config.vm.box = BOX_NAME
@@ -28,7 +28,7 @@ Vagrant.configure(API_VERSION) do |config|
     end
 #    v.customize ["storagectl", :id, "--name", "SATAController", "--add", "sata"]
 #    v.customize ['storageattach', :id,  '--storagectl', 'SATAController', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', DISK]
-    v.customize ['storageattach', :id,  '--storagectl', 'IDE Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', DISK]
+    v.customize ['storageattach', :id,  '--storagectl', 'IDE', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', DISK]
   end
 
   config.vm.provider "vmware_fusion" do |v|
