@@ -58,6 +58,13 @@
           - 'mapr-webserver'
         state: present
       when: inventory_hostname in groups['webserver']
+    - name: Install MapR POSIX client and S3 Gateway
+      yum:
+        name:
+          - 'mapr-posix-client-platinum'
+          - 'mapr-objectstore-gateway'
+        state: present
+      when: inventory_hostname in groups['s3-gateway']
     - name: Ensure group "mapr" exists
       group:
         name: mapr

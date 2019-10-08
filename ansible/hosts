@@ -12,3 +12,6 @@ node1
 
 [webserver]
 node1
+
+[s3-gateway]
+node2

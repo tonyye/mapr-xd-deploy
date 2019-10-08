@@ -4,6 +4,13 @@
     regexp: '^SELINUX='
     line: SELINUX=disabled
 
+- name: Set fuse.num.libs
+  replace:
+    path: /opt/mapr/conf/fuse.conf
+    regexp: '^#?fuse.num.libs=.*$'
+    replace: 'fuse.num.libs=5'
+  when: inventory_hostname in groups['s3-gateway']
+
 - name: Set MAPR_SUBNETS Environment Variable
   replace:
     path: /opt/mapr/conf/env.sh
