@@ -7,8 +7,8 @@
 - name: Set MAPR_SUBNETS Environment Variable
   replace:
     path: /opt/mapr/conf/env.sh
-    regexp: '^#export MAPR_SUBNETS='
-    replace: 'export MAPR_SUBNETS=192.168.56.0/24'
+    regexp: '^#?export MAPR_SUBNETS=.*$'
+    replace: 'export MAPR_SUBNETS=10.248.0.0/16'
 
 - name: Set net.ipv4.tcp_retries2
   sysctl:

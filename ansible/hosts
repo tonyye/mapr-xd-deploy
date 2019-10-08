@@ -1,13 +1,14 @@
 [all]
-node1 ansible_host=192.168.56.11
-node2 ansible_host=192.168.56.12
-node3 ansible_host=192.168.56.13
+node1 ansible_host=10.248.4.184
+node2 ansible_host=10.248.4.188
+#node3 ansible_host=192.168.56.13
 
 [cldb]
 node1
+node2
 
 [zookeeper]
-node2
+node1
 
 [webserver]
-node2
+node1

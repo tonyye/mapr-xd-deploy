@@ -6,6 +6,7 @@
   environment:
     https_proxy: http://10.248.147.6:9090
     http_proxy: http://10.248.147.6:9090
+    no_proxy: bastion-r1.us2.experian.corp
   pre_tasks:
     - name: Import MapR key
       rpm_key:
