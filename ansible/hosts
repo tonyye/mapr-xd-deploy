@@ -1,17 +1,25 @@
 [all]
-node1 ansible_host=10.248.4.184
-node2 ansible_host=10.248.4.188
-#node3 ansible_host=192.168.56.13
+mapr-r1s1 ansible_host=10.248.4.40
+mapr-r1s2 ansible_host=10.248.4.44
+mapr-r2s1 ansible_host=10.248.4.88
+mapr-r2s2 ansible_host=10.248.4.92
+mapr-r3s1 ansible_host=10.248.4.136
+mapr-r3s2 ansible_host=10.248.4.140
+mapr-r4s1 ansible_host=10.248.4.184
+mapr-r4s2 ansible_host=10.248.4.188
 
 [cldb]
-node1
-node2
+mapr-r1s1
+mapr-r2s1
+mapr-r3s1
 
 [zookeeper]
-node1
+mapr-r1s2
+mapr-r2s2
+mapr-r3s2
 
 [webserver]
-node1
+mapr-r1s1
 
 [s3-gateway]
-node2
+mapr-r2s2
